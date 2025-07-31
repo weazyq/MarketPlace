@@ -1,9 +1,0 @@
-CREATE TABLE public.products (
-	id uuid NOT NULL,
-	name varchar NOT NULL,
-	description varchar NOT NULL,
-	createdat date NOT NULL,
-	updatedat date NULL,
-	isremoved bool DEFAULT false NOT NULL,
-	CONSTRAINT products_pk PRIMARY KEY (id)
-);
