@@ -1,4 +1,9 @@
 
+using MarketPlace.Domain.Interfaces;
+using MarketPlace.Infrastructure.Data;
+using MarketPlace.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace MarketPlace.Web
 {
     public class Program
@@ -9,6 +14,13 @@ namespace MarketPlace.Web
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddDbContext<CatalogDbContext>(options => options
+                .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+                .UseLowerCaseNamingConvention()
+            );
 
             var app = builder.Build();
 
