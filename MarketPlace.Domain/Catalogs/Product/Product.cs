@@ -16,12 +16,4 @@ public class Product
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
-
-    public Product(ProductBlank productBlank)
-    {
-        Id = Guid.NewGuid();
-        Name = productBlank.Name;
-        Description = productBlank.Description;
-        CreatedAt = DateTime.Now;
-    }
 }

@@ -1,4 +1,5 @@
 
+using MarketPlace.Application.Commands;
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Data;
 using MarketPlace.Infrastructure.Repositories;
@@ -13,7 +14,13 @@ namespace MarketPlace.Web
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
+
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(AddProductCommand).Assembly);
+            });
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
 

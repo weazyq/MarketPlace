@@ -15,7 +15,7 @@ public class AddProductHandler : IRequestHandler<AddProductCommand, Guid>
 
     public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
     {
-        Product product = new Product(Guid.NewGuid(), request.Name, request.Description, DateTime.Now, null);
+        Product product = new Product(Guid.NewGuid(), request.Name, request.Description, DateTime.UtcNow, null);
         await _productRepository.AddAsync(product, cancellationToken);
 
         // Добавить Publish Event, Save EventStore
