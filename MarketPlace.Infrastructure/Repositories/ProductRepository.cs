@@ -2,6 +2,7 @@
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Data;
 using MarketPlace.Infrastructure.Entities;
+using MarketPlace.Domain.Events;
 
 namespace MarketPlace.Infrastructure.Repositories
 {
@@ -23,6 +24,8 @@ namespace MarketPlace.Infrastructure.Repositories
                 Description = product.Description,
                 CreatedAt = product.CreatedAt,
             };
+
+            productToAdd.AddEvent(new ProductAddedEvent(productToAdd.Id, productToAdd.Name, productToAdd.CreatedAt));
 
             await _dbContext.Products.AddAsync(productToAdd, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

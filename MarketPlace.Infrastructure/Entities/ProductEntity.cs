@@ -1,4 +1,7 @@
-﻿namespace MarketPlace.Infrastructure.Entities;
+﻿using MarketPlace.Domain.Events;
+using MarketPlace.Domain.Events.Interface;
+
+namespace MarketPlace.Infrastructure.Entities;
 
 public class ProductEntity
 {
@@ -8,4 +11,12 @@ public class ProductEntity
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public Boolean IsRemoved { get; set; }
+    
+    private readonly List<IDomainEvent> _productEvents = new();
+    public IReadOnlyCollection<IDomainEvent> Events => _productEvents.AsReadOnly();
+
+    public void AddEvent(IDomainEvent @event)
+    {
+        _productEvents.Add(@event);
+    }
 }
