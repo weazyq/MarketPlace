@@ -1,8 +1,7 @@
-
 using MarketPlace.Application.Commands;
 using MarketPlace.Domain.Interfaces;
-using MarketPlace.Infrastructure.Data;
-using MarketPlace.Infrastructure.Repositories;
+using MarketPlace.Infrastructure.Persistence;
+using MarketPlace.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketPlace.Web
@@ -24,7 +23,7 @@ namespace MarketPlace.Web
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-            builder.Services.AddDbContext<CatalogDbContext>(options => options
+            builder.Services.AddDbContext<DataContext>(options => options
                 .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
                 .UseLowerCaseNamingConvention()
             );

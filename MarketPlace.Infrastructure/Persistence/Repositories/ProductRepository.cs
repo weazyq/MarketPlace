@@ -1,16 +1,15 @@
 ﻿using MarketPlace.Domain.Catalogs.Product;
 using MarketPlace.Domain.Interfaces;
-using MarketPlace.Infrastructure.Data;
 using MarketPlace.Infrastructure.Entities;
 using MarketPlace.Domain.Events;
 
-namespace MarketPlace.Infrastructure.Repositories
+namespace MarketPlace.Infrastructure.Persistence.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly CatalogDbContext _dbContext;
+        private readonly DataContext _dbContext;
 
-        public ProductRepository(CatalogDbContext dbContext)
+        public ProductRepository(DataContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -24,8 +23,7 @@ namespace MarketPlace.Infrastructure.Repositories
                 Description = product.Description,
                 CreatedAt = product.CreatedAt,
             };
-
-            productToAdd.AddEvent(new ProductAddedEvent(productToAdd.Id, productToAdd.Name, productToAdd.CreatedAt));
+            productToAdd.AddEvent(new ProductAddedEvent(product.Id, product.Name, product.CreatedAt));
 
             await _dbContext.Products.AddAsync(productToAdd, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
