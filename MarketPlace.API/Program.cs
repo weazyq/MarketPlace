@@ -1,3 +1,6 @@
+using Confluent.Kafka;
+using MarketPlace.API.Kafka;
+using MarketPlace.API.Services;
 using MarketPlace.Application.Commands;
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Persistence;
@@ -19,6 +22,16 @@ namespace MarketPlace.Web
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(AddProductCommand).Assembly);
+            });
+            
+            builder.Services.AddHostedService<OutboxPublisherService>();
+            builder.Services.AddSingleton<IKafkaProducer>(sp =>
+            {
+                var config = new ProducerConfig
+                {
+                    BootstrapServers = "localhost:9092"
+                };
+                return new KafkaProducer(config);
             });
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
