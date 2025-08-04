@@ -7,9 +7,13 @@ public class KafkaProducer : IKafkaProducer
 {
     private readonly IProducer<Null, string> _producer;
 
-    public KafkaProducer(ProducerConfig config)
+    public KafkaProducer(IConfiguration configuration)
     {
-        _producer = new ProducerBuilder<Null, string>(config).Build();
+        ProducerConfig producerConfig = new ProducerConfig
+        {
+            BootstrapServers = configuration["Kafka:BootstrapServers"]
+        };
+        _producer = new ProducerBuilder<Null, string>(producerConfig).Build();
     }
 
     public async Task ProduceAsync(string topic, string message)

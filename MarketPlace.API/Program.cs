@@ -7,6 +7,7 @@ using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Persistence;
 using MarketPlace.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MarketPlace.Web
 {
@@ -28,11 +29,7 @@ namespace MarketPlace.Web
             builder.Services.AddHostedService<OutboxPublisherService>();
             builder.Services.AddSingleton<IKafkaProducer>(sp =>
             {
-                var config = new ProducerConfig
-                {
-                    BootstrapServers = "localhost:9092"
-                };
-                return new KafkaProducer(config);
+                return new KafkaProducer(builder.Configuration);
             });
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
