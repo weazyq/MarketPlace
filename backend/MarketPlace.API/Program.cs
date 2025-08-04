@@ -1,8 +1,10 @@
 using Confluent.Kafka;
 using MarketPlace.API.Kafka;
+using MarketPlace.API.Kafka.Consumer;
 using MarketPlace.API.Kafka.Producer;
 using MarketPlace.API.Services;
 using MarketPlace.Application.Commands;
+using MarketPlace.Domain.Events;
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Persistence;
 using MarketPlace.Infrastructure.Persistence.Repositories;
@@ -31,6 +33,9 @@ namespace MarketPlace.Web
             {
                 return new KafkaProducer(builder.Configuration);
             });
+
+            builder.Services.AddHostedService<KafkaBackgroundConsumer<ProductAddedEvent>>();
+            builder.Services.AddScoped<IKafkaConsumer<ProductAddedEvent>, ProductAddedConsumer>();
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
