@@ -1,6 +1,7 @@
 ﻿using MarketPlace.Domain.Events.Interface;
 using MarketPlace.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace MarketPlace.Infrastructure.Persistence;
@@ -29,7 +30,7 @@ public class DataContext : DbContext
             {
                 Id = Guid.NewGuid(),
                 Type = domainEvent.GetType().Name,
-                Payload = JsonSerializer.Serialize(domainEvent),
+                Payload = JsonConvert.SerializeObject(domainEvent),
                 OccurredOn = domainEvent.OccurredOn,
                 IsProcessed = false,
             };
