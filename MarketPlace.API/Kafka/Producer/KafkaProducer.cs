@@ -1,7 +1,7 @@
 ﻿
 using Confluent.Kafka;
 
-namespace MarketPlace.API.Kafka;
+namespace MarketPlace.API.Kafka.Producer;
 
 public class KafkaProducer : IKafkaProducer
 {

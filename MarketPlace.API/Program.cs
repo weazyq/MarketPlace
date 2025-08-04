@@ -1,5 +1,6 @@
 using Confluent.Kafka;
 using MarketPlace.API.Kafka;
+using MarketPlace.API.Kafka.Producer;
 using MarketPlace.API.Services;
 using MarketPlace.Application.Commands;
 using MarketPlace.Domain.Interfaces;

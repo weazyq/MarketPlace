@@ -1,4 +1,4 @@
-﻿namespace MarketPlace.API.Kafka;
+﻿namespace MarketPlace.API.Kafka.Producer;
 
 public interface IKafkaProducer
 {

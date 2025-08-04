@@ -1,5 +1,4 @@
-﻿
-using MarketPlace.API.Kafka;
+﻿using MarketPlace.API.Kafka.Producer;
 using MarketPlace.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
