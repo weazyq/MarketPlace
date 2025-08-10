@@ -1,7 +1,7 @@
 using MarketPlace.API.Kafka.Consumer;
 using MarketPlace.API.Kafka.Producer;
 using MarketPlace.API.Services;
-using MarketPlace.Application.Commands;
+using MarketPlace.Application.Commands.Product;
 using MarketPlace.Domain.Events;
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Persistence;

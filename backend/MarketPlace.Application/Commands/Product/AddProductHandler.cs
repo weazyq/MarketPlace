@@ -2,7 +2,7 @@
 using MarketPlace.Domain.Interfaces;
 using MediatR;
 
-namespace MarketPlace.Application.Commands;
+namespace MarketPlace.Application.Commands.Product;
 
 public class AddProductHandler : IRequestHandler<AddProductCommand, Guid>
 {
