@@ -2,6 +2,7 @@ using MarketPlace.API.Kafka.Consumer;
 using MarketPlace.API.Kafka.Producer;
 using MarketPlace.API.Services;
 using MarketPlace.Application.Commands.Products;
+using MarketPlace.Application.Commands.Shops;
 using MarketPlace.Domain.Events;
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Persistence;
@@ -32,19 +33,20 @@ public class Program
 
         builder.Services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssembly(typeof(AddProductCommand).Assembly);
+            cfg.RegisterServicesFromAssemblies(typeof(AddProductCommand).Assembly, typeof(AddShopCommand).Assembly);
         });
         
-        builder.Services.AddHostedService<OutboxPublisherService>();
-        builder.Services.AddSingleton<IKafkaProducer>(sp =>
-        {
-            return new KafkaProducer(builder.Configuration);
-        });
+        //builder.Services.AddHostedService<OutboxPublisherService>();
+        //builder.Services.AddSingleton<IKafkaProducer>(sp =>
+        //{
+        //    return new KafkaProducer(builder.Configuration);
+        //});
 
-        builder.Services.AddHostedService<KafkaBackgroundConsumer<ProductAddedEvent>>();
-        builder.Services.AddScoped<IKafkaConsumer<ProductAddedEvent>, ProductAddedConsumer>();
+        //builder.Services.AddHostedService<KafkaBackgroundConsumer<ProductAddedEvent>>();
+        //builder.Services.AddScoped<IKafkaConsumer<ProductAddedEvent>, ProductAddedConsumer>();
 
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<IShopRepository, ShopRepository>();
 
         builder.Services.AddDbContext<DataContext>(options => options
             .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
