@@ -20,6 +20,7 @@ public class ProductController : ControllerBase
 
         Guid productId = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id = productId }, null);
+
     }
 
     [HttpGet("products/{id}")]
