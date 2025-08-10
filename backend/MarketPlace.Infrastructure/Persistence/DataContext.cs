@@ -1,7 +1,9 @@
 ﻿using MarketPlace.Domain.Events.Interface;
+using MarketPlace.Domain.Order;
 using MarketPlace.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace MarketPlace.Infrastructure.Persistence;
@@ -11,6 +13,11 @@ public class DataContext : DbContext
     public DataContext(DbContextOptions options): base(options) { }
 
     public DbSet<ProductEntity> Products { get; set; }
+    public DbSet<OrderEntity> Orders { get; set; }
+    public DbSet<OrderItemEntity> OrderItems { get; set; }
+    public DbSet<ShopEntity> Shops { get; set; }
+    public DbSet<UserEntity> Users { get; set; }
+    public DbSet<ProductEstimationEntity> ProductEstimations { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
