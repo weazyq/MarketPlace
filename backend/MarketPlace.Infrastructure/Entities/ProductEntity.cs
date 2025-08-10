@@ -1,14 +1,16 @@
-﻿using MarketPlace.Domain.Events;
-using MarketPlace.Domain.Events.Interface;
+﻿using MarketPlace.Domain.Events.Interface;
 
 namespace MarketPlace.Infrastructure.Entities;
 
 public class ProductEntity : IHasDomainEvents
 {
     public Guid Id { get; set; }
+    public Guid ShopID { get; set; }
     public required String Name { get; set; }
     public required String Description { get; set; }
+    public Decimal Price { get; set; }
     public DateTime CreatedAt { get; set; }
+    public float Rating { get; set; }
     public DateTime UpdatedAt { get; set; }
     public Boolean IsRemoved { get; set; }
 
