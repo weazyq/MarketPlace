@@ -2,6 +2,7 @@ using MarketPlace.API.Kafka.Consumer;
 using MarketPlace.API.Kafka.Producer;
 using MarketPlace.API.Services;
 using MarketPlace.Application.Commands.Products;
+using MarketPlace.Application.Commands.Users;
 using MarketPlace.Domain.Events;
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Persistence;
@@ -32,7 +33,7 @@ public class Program
 
         builder.Services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssembly(typeof(AddProductCommand).Assembly);
+            cfg.RegisterServicesFromAssemblies(typeof(AddProductCommand).Assembly, typeof(AddUserCommand).Assembly);
         });
         
         builder.Services.AddHostedService<OutboxPublisherService>();
