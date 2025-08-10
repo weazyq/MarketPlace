@@ -1,8 +1,6 @@
-﻿
-using Confluent.Kafka;
+﻿using Confluent.Kafka;
 using MarketPlace.API.Kafka.Consumer;
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace MarketPlace.API.Services;
 

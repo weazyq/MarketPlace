@@ -1,4 +1,3 @@
-using MarketPlace.Domain.Catalogs.Product;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketPlace.Web.Controllers;

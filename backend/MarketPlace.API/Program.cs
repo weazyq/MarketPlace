@@ -1,5 +1,3 @@
-using Confluent.Kafka;
-using MarketPlace.API.Kafka;
 using MarketPlace.API.Kafka.Consumer;
 using MarketPlace.API.Kafka.Producer;
 using MarketPlace.API.Services;
@@ -9,70 +7,68 @@ using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Persistence;
 using MarketPlace.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace MarketPlace.Web
+namespace MarketPlace.Web;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddCors(options =>
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddCors(options =>
+            options.AddPolicy("AllowFrontend", policy =>
             {
-                options.AddPolicy("AllowFrontend", policy =>
-                {
-                    policy.WithOrigins("http://localhost:3000")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
+                policy.WithOrigins("http://localhost:3000")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
             });
+        });
 
-            builder.Services.AddControllers();
+        builder.Services.AddControllers();
 
-            builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen();
 
-            builder.Services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(typeof(AddProductCommand).Assembly);
-            });
-            
-            builder.Services.AddHostedService<OutboxPublisherService>();
-            builder.Services.AddSingleton<IKafkaProducer>(sp =>
-            {
-                return new KafkaProducer(builder.Configuration);
-            });
+        builder.Services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(AddProductCommand).Assembly);
+        });
+        
+        builder.Services.AddHostedService<OutboxPublisherService>();
+        builder.Services.AddSingleton<IKafkaProducer>(sp =>
+        {
+            return new KafkaProducer(builder.Configuration);
+        });
 
-            builder.Services.AddHostedService<KafkaBackgroundConsumer<ProductAddedEvent>>();
-            builder.Services.AddScoped<IKafkaConsumer<ProductAddedEvent>, ProductAddedConsumer>();
+        builder.Services.AddHostedService<KafkaBackgroundConsumer<ProductAddedEvent>>();
+        builder.Services.AddScoped<IKafkaConsumer<ProductAddedEvent>, ProductAddedConsumer>();
 
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-            builder.Services.AddDbContext<DataContext>(options => options
-                .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-                .UseLowerCaseNamingConvention()
-            );
+        builder.Services.AddDbContext<DataContext>(options => options
+            .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+            .UseLowerCaseNamingConvention()
+        );
 
-            var app = builder.Build();
+        var app = builder.Build();
 
-            app.UseCors("AllowFrontend");
+        app.UseCors("AllowFrontend");
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+
+        app.MapControllers();
+
+        app.Run();
     }
 }

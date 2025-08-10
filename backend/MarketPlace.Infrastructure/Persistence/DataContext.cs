@@ -1,10 +1,7 @@
 ﻿using MarketPlace.Domain.Events.Interface;
-using MarketPlace.Domain.Order;
 using MarketPlace.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Text.Json;
 
 namespace MarketPlace.Infrastructure.Persistence;
 
