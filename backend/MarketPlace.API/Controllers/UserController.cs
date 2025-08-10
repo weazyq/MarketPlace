@@ -10,7 +10,7 @@ public class UserController : ControllerBase
     private readonly IMediator _mediator;
     public UserController(IMediator mediator) 
     {
-        mediator = _mediator;
+        _mediator = mediator;
     }
 
     [HttpPost("users/save")]

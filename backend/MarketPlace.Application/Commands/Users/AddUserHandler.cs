@@ -9,12 +9,9 @@ namespace MarketPlace.Application.Commands.Users;
 public class AddUserHandler : IRequestHandler<AddUserCommand, ActionResult<Guid?>>
 {
     private readonly IUserRepository _userRepository;
-    private readonly PasswordService _passwordService;
-
-    public AddUserHandler(IUserRepository userRepository, PasswordService passwordService)
+    public AddUserHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _passwordService = passwordService;
     }
 
     public async Task<ActionResult<Guid?>> Handle(AddUserCommand request, CancellationToken cancellationToken)
@@ -26,7 +23,8 @@ public class AddUserHandler : IRequestHandler<AddUserCommand, ActionResult<Guid?
         if (String.IsNullOrWhiteSpace(request.Password))
             return new BadRequestResult();
 
-        String passwordHash = _passwordService.HashPassword(request.Password);
+        PasswordService passwordService = new PasswordService();
+        String passwordHash = passwordService.HashPassword(request.Password);
         User user = new(Guid.NewGuid(), request.Name, request.LastName, request.Email, request.PhoneNumber, passwordHash);
 
         Boolean isUserSaved = await _userRepository.AddAsync(user);

@@ -52,6 +52,7 @@ public class Program
 
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<IShopRepository, ShopRepository>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
 
         builder.Services.AddDbContext<DataContext>(options => options
             .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))

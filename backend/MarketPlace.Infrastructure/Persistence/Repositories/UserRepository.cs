@@ -8,17 +8,14 @@ namespace MarketPlace.Infrastructure.Persistence.Repositories;
 public class UserRepository : IUserRepository
 {
     private readonly ILogger<IUserRepository> _logger;
-    private readonly IUserRepository _userRepository;
     private readonly DataContext _dbContext;
 
     public UserRepository(
         ILogger<IUserRepository> logger,
-        IUserRepository userRepository, 
         DataContext dbContext
     )
     {
         _logger = logger;
-        _userRepository = userRepository;
         _dbContext = dbContext;
     }
 
