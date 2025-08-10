@@ -1,8 +1,8 @@
-﻿using MarketPlace.Domain.Catalogs.Product;
-using MarketPlace.Domain.Interfaces;
+﻿using MarketPlace.Domain.Interfaces;
+using MarketPlace.Domain.Catalogs.Products;
 using MediatR;
 
-namespace MarketPlace.Application.Commands;
+namespace MarketPlace.Application.Commands.Products;
 
 public class AddProductHandler : IRequestHandler<AddProductCommand, Guid>
 {

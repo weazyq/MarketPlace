@@ -1,4 +1,4 @@
-﻿using MarketPlace.Domain.Catalogs.Product;
+﻿using MarketPlace.Domain.Catalogs.Products;
 
 namespace MarketPlace.Domain.Interfaces;
 

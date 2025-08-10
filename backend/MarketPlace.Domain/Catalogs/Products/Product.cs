@@ -1,4 +1,4 @@
-﻿namespace MarketPlace.Domain.Catalogs.Product;
+﻿namespace MarketPlace.Domain.Catalogs.Products;
 
 public class Product
 {

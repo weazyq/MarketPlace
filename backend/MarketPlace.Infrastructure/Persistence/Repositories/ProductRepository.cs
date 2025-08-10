@@ -1,4 +1,4 @@
-﻿using MarketPlace.Domain.Catalogs.Product;
+﻿using MarketPlace.Domain.Catalogs.Products;
 using MarketPlace.Domain.Interfaces;
 using MarketPlace.Infrastructure.Entities;
 using MarketPlace.Domain.Events;

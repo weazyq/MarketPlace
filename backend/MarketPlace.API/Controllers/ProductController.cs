@@ -1,5 +1,5 @@
 ﻿using MarketPlace.API.Requests;
-using MarketPlace.Application.Commands;
+using MarketPlace.Application.Commands.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
