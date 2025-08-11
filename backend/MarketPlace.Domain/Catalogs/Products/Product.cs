@@ -4,6 +4,7 @@ public class Product
 {
     public Guid Id { get; }
     public String Name { get; }
+    public Decimal Price { get; }
     public String Description { get; }
     public DateTime CreatedAt { get; }
     public DateTime? UpdatedAt { get; }

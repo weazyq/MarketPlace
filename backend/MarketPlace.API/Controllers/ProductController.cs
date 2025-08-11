@@ -16,7 +16,7 @@ public class ProductController : ControllerBase
     [HttpPost("products/save")]
     public async Task<IActionResult> AddProduct([FromBody] AddProductRequest request)
     {
-        AddProductCommand command = new AddProductCommand(request.Name, request.Description);
+        AddProductCommand command = new AddProductCommand(request.Name, request.Description, request.Price, request.ShopId);
 
         Guid productId = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id = productId }, null);

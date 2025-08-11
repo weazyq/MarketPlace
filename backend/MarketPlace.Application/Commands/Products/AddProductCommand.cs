@@ -4,5 +4,7 @@ namespace MarketPlace.Application.Commands.Products;
 
 public record AddProductCommand(
     string Name,
-    string Description
+    string Description,
+    decimal Price,
+    Guid ShopId
 ): IRequest<Guid>;

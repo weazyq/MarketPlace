@@ -20,6 +20,7 @@ namespace MarketPlace.Infrastructure.Persistence.Repositories
             {
                 Id = product.Id,
                 Name = product.Name,
+                Price = product.Price,
                 Description = product.Description,
                 CreatedAt = product.CreatedAt,
             };
